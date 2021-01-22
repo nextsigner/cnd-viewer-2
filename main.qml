@@ -189,7 +189,8 @@ ApplicationWindow {
                 width: app.fs*7.24
                 height: width
                 radius: width*0.5
-                border.width: 4
+                color: colInfo.visible?'white':'transparent'
+                border.width: colInfo.visible?4:0
                 border.color: 'red'
                 clip: true
                 anchors.centerIn: img
@@ -204,6 +205,7 @@ ApplicationWindow {
                     NumberAnimation{duration: 200}
                 }
                 Column{
+                    id: colInfo
                     spacing: app.fs*0.1
                     anchors.centerIn: parent
                     Text {
@@ -238,6 +240,17 @@ ApplicationWindow {
                         textFormat: Text.RichText
                         horizontalAlignment: Text.AlignHCenter
                         anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+                Behavior on opacity{NumberAnimation{duration: 250}}
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        if(!colInfo.visible){
+                            colInfo.visible=true
+                        }else{
+                            colInfo.visible=false
+                        }
                     }
                 }
             }
