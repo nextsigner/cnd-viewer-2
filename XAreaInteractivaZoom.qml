@@ -13,7 +13,7 @@ Rectangle {
         height: width
         radius: width*0.5
         color: 'transparent'
-        border.width: 10//poner en 3 para ver si está centrado
+        border.width: 0//poner en 3 para ver si está centrado
         border.color: 'blue'
         anchors.centerIn: r
         anchors.horizontalCenterOffset: app.fs*1.5

@@ -7,7 +7,7 @@ ApplicationWindow {
     id: app
     visible: true
     visibility: "Maximized"
-    color: 'green'
+    color: 'black'
     title: 'cndviewer-2'
     property int fs: width*0.03
     property string url
@@ -102,6 +102,7 @@ ApplicationWindow {
             height: parent.height
             border.width: 8
             border.color: app.mod===0?'red':'yellow'
+            color: 'black'
             Image{
                 id: img
                 source: app.url
@@ -213,7 +214,7 @@ ApplicationWindow {
                         color: 'red'
                         font.pixelSize: app.fs*1.5
                         text: infoCentral.info1
-                        width: parent.width-app.fs
+                        width: contentWidth+app.fs*1.5//parent.width-app.fs
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                         horizontalAlignment: Text.AlignHCenter
@@ -224,7 +225,7 @@ ApplicationWindow {
                         color: 'red'
                         font.pixelSize: app.fs*2
                         text: infoCentral.info2
-                        width: parent.width-app.fs*1.5
+                        width: contentWidth+app.fs*1.5//parent.width-app.fs*1.5
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                         horizontalAlignment: Text.AlignHCenter
@@ -235,7 +236,7 @@ ApplicationWindow {
                         color: 'red'
                         font.pixelSize: app.fs*2
                         text: infoCentral.info3
-                        width: parent.width-app.fs
+                        width: contentWidth+app.fs*1.5//parent.width-app.fs
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                         horizontalAlignment: Text.AlignHCenter

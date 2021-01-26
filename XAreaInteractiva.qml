@@ -140,6 +140,9 @@ Rectangle {
                             //console.log('Seteando '+son)
                         }
                         onDoubleClicked: {
+                            xMiraSen.visible=true
+                            app.lock=true
+                            app.setInfo(compSen.info1, compSen.info2, compSen.info3)
                             maSC.enabled=false
                             tShowMASC.restart()
                         }
@@ -175,16 +178,175 @@ Rectangle {
                 visible: false
                 property bool enabled: true
             }
-//            MouseArea{
-//                id: maSCM
-//                anchors.fill: parent
-//                drag.target: parent
-//                drag.axis: drag.XAndYAxis
-//            }
+            //            MouseArea{
+            //                id: maSCM
+            //                anchors.fill: parent
+            //                drag.target: parent
+            //                drag.axis: drag.XAndYAxis
+            //            }
         }
     }
-    Component.onCompleted: {
-        //loadData()
+    Component{
+        id: scAsc
+        Rectangle{
+            id: compSenAsc
+            width: 2//rueda.width
+            height: rueda.width
+            anchors.centerIn: parent
+            rotation: 45
+            color: 'transparent'
+            property string son: '???'
+            property string info1: '???'
+            property string info2: '???'
+            property string info3: '???'
+            Rectangle{
+                id: info
+                width: app.fs*7.24
+                height: width
+                radius: width*0.5
+                border.width: 4
+                border.color: 'red'
+                clip: true
+                anchors.centerIn: parent
+                rotation: 0-parent.rotation
+                property bool show: false
+                opacity: 0.0//show?1.0:0.0
+                Behavior on opacity {
+                    NumberAnimation{duration: 200}
+                }
+                Column{
+                    spacing: app.fs*0.1
+                    anchors.centerIn: parent
+                    Text {
+                        id: i1
+                        color: 'red'
+                        font.pixelSize: app.fs*1.5
+                        text: compSen.info1
+                        width: parent.width-app.fs
+                        wrapMode: Text.WordWrap
+                        textFormat: Text.RichText
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    Text {
+                        id: i2
+                        color: 'red'
+                        font.pixelSize: app.fs*2
+                        text: compSen.info2
+                        width: parent.width-app.fs*1.5
+                        wrapMode: Text.WordWrap
+                        textFormat: Text.RichText
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                    Text {
+                        id: i3
+                        color: 'red'
+                        font.pixelSize: app.fs*2
+                        text: compSen.info3
+                        width: parent.width-app.fs
+                        wrapMode: Text.WordWrap
+                        textFormat: Text.RichText
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+            }
+            Rectangle{
+                id: xMASC
+                width: app.fs*1.5
+                height: width//parent.height/2
+                border.width: 0
+                border.color: 'yellow'
+                radius: width*0.5
+                color:  'transparent'
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: 0-app.fs*1.5
+                property bool show: false
+                property bool seted: false
+                onYChanged: {
+                    border.width=1
+                    tHideBorder.restart()
+                }
+                Timer{
+                    id: tHideBorder
+                    running: false
+                    repeat: false
+                    interval: 100
+                    onTriggered: parent.border.width=0
+                }
+
+                Rectangle{
+                    anchors.fill: parent
+                    color: 'transparent'
+                    Behavior on opacity {
+                        NumberAnimation{duration: 200}
+                    }
+                    MouseArea{
+                        id: maSC
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        drag.target: parent.parent
+                        drag.axis: drag.YAxis
+                        //drag.active: true
+                        onClicked: {
+                            if(!xMASC.seted){
+                                //xMASC.height=app.fs*0.85//xMASC.parent.height/2-mouseY
+                                //xMASC.width=xMASC.height
+                                //xMASC.y=mouseY-app.fs*0.85*0.5
+                                //xMASC.seted=true
+
+                                //maSC.anchors.fill=xMASC
+                                //pos.y=mouseY+xMASC-width//-app.fs*0.25
+                            }
+                            if(!app.lock){
+                                app.setInfo(compSen.info1, compSen.info2, compSen.info3)
+                            }
+                            xMiraSen.visible=!xMiraSen.visible
+                            r.seteandoObj(son, xMiraSen.visible)
+                            //console.log('Seteando '+son)
+                        }
+                        onDoubleClicked: {
+                            xMiraSen.visible=true
+                            app.lock=true
+                            app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3)
+                            maSC.enabled=false
+                            tShowMASC.restart()
+                        }
+                        onEntered: {
+                            if(!app.lock){
+                                app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3)
+                            }
+                            info.show=true
+                        }
+                        onExited: {
+                            if(!app.lock){
+                                app.setInfo('', '', '')
+                            }
+                            info.show=false
+                        }
+                    }
+                    Timer{
+                        id: tShowMASC
+                        running: false
+                        repeat: false
+                        interval: 1500
+                        onTriggered: {
+                            maSC.enabled=true
+                        }
+                    }
+                }
+            }
+            XMira{
+                id: xMiraSen
+                w:app.fs*2.5
+                mov: false//enabled?img.mov:true
+                anchors.centerIn: xMASC
+                visible: false
+                property bool enabled: true
+            }
+        }
     }
     function loadData(){
         let fn=app.url.replace('cap_', '').replace('.png', '')
@@ -261,6 +423,12 @@ Rectangle {
         sObj='lilith'
         obj=jsonData.psc[sObj]
         addSC(sObj, obj.s, obj.g, obj.m, (obj.rh).toUpperCase(), jsonData)
+
+        addSCAsc('Ascendente', jsonData.pc.h1.s, jsonData.pc.h1.g, jsonData.pc.h1.m, jsonData)
+
+        //        sObj='Ascendente'
+        //        obj=jsonData.psc[sObj]
+        //        addSC(sObj, 'Ascendente', jsonData.pc.h1.g, jsonData.pc.h1.m, ('i').toUpperCase(), jsonData)
     }
 
     function addSC(c, s, g, m, h, j){
@@ -280,6 +448,17 @@ Rectangle {
         let comp=sc
         let obj=comp.createObject(rueda, {rotation: gTotSig, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s})
     }
+    function addSCAsc(c, s, g, m, j){
+        let fs=parseInt(app.fs*1.5)
+        let fs2=parseInt(fs *0.4)
+        let info1='<b  style="font-size:'+parseInt(fs*1.2)+'px;">Signo</b><br />'
+        info1+='<b  style="font-size:'+parseInt(fs*1.1)+'px;">Ascendente</b>'
+        let info2='<b style="font-size:'+fs+'px;">'+app.signos[app.objSignsNames.indexOf(s)]+'</b>'
+        let info3='<b style="font-size:'+fs2+'px;">°'+g+'\''+m+' Casa I</b>'
+        let comp=scAsc
+        let obj=comp.createObject(rueda, {rotation: -90, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s})
+    }
+
     function getSigIndex(s){
         let ms=['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
         return ms.indexOf(s)

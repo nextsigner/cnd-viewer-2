@@ -7,6 +7,8 @@ Item {
     height: w
     property int w: app.fs
     property bool mov: false
+    property int b1: 6
+    property int b2: 6
     onMovChanged: {
         if(mov){
             mira.visible=false
@@ -17,18 +19,19 @@ Item {
         width: r.w
         height: width
         radius: width*0.5
-        border.width: 6
+        border.width: r.b1
         border.color: 'red'
         color: 'transparent'
         anchors.centerIn: parent
         Rectangle{
-            width: parent.width+2
+            width: parent.width+r.b1*2
             height: width
             radius: width*0.5
-            border.width: 2
+            border.width: r.b2
             border.color: 'white'
             color: 'transparent'
             anchors.centerIn: parent
+            z:parent.z-1
         }
     }
     Timer{
