@@ -214,7 +214,7 @@ ApplicationWindow {
                         color: 'red'
                         font.pixelSize: app.fs*1.5
                         text: infoCentral.info1
-                        width: contentWidth+app.fs*1.5//parent.width-app.fs
+                        width:  parent.width-app.fs
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                         horizontalAlignment: Text.AlignHCenter
@@ -225,7 +225,7 @@ ApplicationWindow {
                         color: 'red'
                         font.pixelSize: app.fs*2
                         text: infoCentral.info2
-                        width: contentWidth+app.fs*1.5//parent.width-app.fs*1.5
+                        width:  parent.width-app.fs*1.5
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                         horizontalAlignment: Text.AlignHCenter
@@ -236,7 +236,7 @@ ApplicationWindow {
                         color: 'red'
                         font.pixelSize: app.fs*2
                         text: infoCentral.info3
-                        width: contentWidth+app.fs*1.5//parent.width-app.fs
+                        width:  parent.width-app.fs
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
                         horizontalAlignment: Text.AlignHCenter
@@ -244,16 +244,27 @@ ApplicationWindow {
                     }
                 }
                 Behavior on opacity{NumberAnimation{duration: 250}}
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        if(!colInfo.visible){
-                            colInfo.visible=true
-                        }else{
-                            colInfo.visible=false
+                Repeater{
+                    model: 18
+                    Rectangle{
+                        width: infoCentral.width
+                        height: app.fs
+                        color: 'transparent'
+                        anchors.centerIn: parent
+                        rotation: index*10
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                if(!colInfo.visible){
+                                    colInfo.visible=true
+                                }else{
+                                    colInfo.visible=false
+                                }
+                            }
                         }
                     }
                 }
+
             }
         }
 

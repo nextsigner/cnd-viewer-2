@@ -33,7 +33,7 @@ Rectangle {
     Component{
         id: sc
         Rectangle{
-            id: compSen
+            id: compSenZoom
             width: 2//rueda.width
             height: rueda.width
             anchors.centerIn: parent
@@ -65,7 +65,7 @@ Rectangle {
                         id: i1
                         color: 'red'
                         font.pixelSize: app.fs*1.5
-                        text: compSen.info1
+                        text: compSenZoom.info1
                         width: parent.width-app.fs
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
@@ -76,7 +76,7 @@ Rectangle {
                         id: i2
                         color: 'red'
                         font.pixelSize: app.fs*2
-                        text: compSen.info2
+                        text: compSenZoom.info2
                         width: parent.width-app.fs*1.5
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
@@ -87,7 +87,7 @@ Rectangle {
                         id: i3
                         color: 'red'
                         font.pixelSize: app.fs*2
-                        text: compSen.info3
+                        text: compSenZoom.info3
                         width: parent.width-app.fs
                         wrapMode: Text.WordWrap
                         textFormat: Text.RichText
@@ -97,7 +97,7 @@ Rectangle {
                 }
             }
             Rectangle{
-                id: xMASC
+                id: xMASCZOOM
                 width: app.fs*0.15
                 height: parent.height/2
                 border.width: 0
@@ -134,17 +134,17 @@ Rectangle {
                         drag.axis: drag.YAxis
                         //drag.active: true
                         onClicked: {
-                            if(!xMASC.seted){
-                                xMASC.height=app.fs*0.85//xMASC.parent.height/2-mouseY
-                                xMASC.width=xMASC.height
-                                xMASC.y=mouseY-app.fs*0.85*0.5
-                                xMASC.seted=true
+                            if(!xMASCZOOM.seted){
+                                xMASCZOOM.height=app.fs*0.85//xMASCZOOM.parent.height/2-mouseY
+                                xMASCZOOM.width=xMASCZOOM.height
+                                xMASCZOOM.y=mouseY-app.fs*0.85*0.5
+                                xMASCZOOM.seted=true
 
-                                //maSC.anchors.fill=xMASC
-                                //pos.y=mouseY+xMASC-width//-app.fs*0.25
+                                //maSC.anchors.fill=xMASCZOOM
+                                //pos.y=mouseY+xMASCZOOM-width//-app.fs*0.25
                             }
                             if(!app.lock){
-                                app.setInfo(compSen.info1, compSen.info2, compSen.info3)
+                                app.setInfo(compSenZoom.info1, compSenZoom.info2, compSenZoom.info3)
                             }
                             xMiraSen.visible=!xMiraSen.visible
                         }
@@ -154,7 +154,7 @@ Rectangle {
                         }
                         onEntered: {
                             if(!app.lock){
-                                app.setInfo(compSen.info1, compSen.info2, compSen.info3)
+                                app.setInfo(compSenZoom.info1, compSenZoom.info2, compSenZoom.info3)
                             }
                             info.show=true
                         }
@@ -180,7 +180,7 @@ Rectangle {
                 id: xMiraSen
                 w:app.fs*2
                 mov: false//enabled?img.mov:true
-                anchors.centerIn: xMASC
+                anchors.centerIn: xMASCZOOM
                 visible: false
                 property bool enabled: true
             }
@@ -190,12 +190,12 @@ Rectangle {
                 font.pixelSize: app.fs*2
                 color: 'red'
                 //visible: xMiraSen.visible
-                rotation: 360-compSen.rotation
+                rotation: 360-compSenZoom.rotation
                 anchors.centerIn: xMiraSen
                 visible: false
             }
             function activar(set){
-                if(xMASC.seted){
+                if(xMASCZOOM.seted){
                     xMiraSen.visible=set
                 }
             }
