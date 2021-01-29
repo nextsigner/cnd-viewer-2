@@ -133,7 +133,7 @@ Rectangle {
                                 //pos.y=mouseY+xMASC-width//-app.fs*0.25
                             }
                             if(!app.lock){
-                                app.setInfo(compSen.info1, compSen.info2, compSen.info3)
+                                app.setInfo(compSen.info1, compSen.info2, compSen.info3, compSen.son)
                             }
                             xMiraSen.visible=!xMiraSen.visible
                             r.seteandoObj(son, xMiraSen.visible)
@@ -142,7 +142,7 @@ Rectangle {
                         onDoubleClicked: {
                             xMiraSen.visible=true
                             app.lock=true
-                            app.setInfo(compSen.info1, compSen.info2, compSen.info3)
+                            app.setInfo(compSen.info1, compSen.info2, compSen.info3,compSen.son)
                             maSC.enabled=false
                             tShowMASC.restart()
                         }
@@ -154,7 +154,7 @@ Rectangle {
                         }
                         onExited: {
                             if(!app.lock){
-                                app.setInfo('', '', '')
+                                app.setInfo('', '', '','')
                             }
                             info.show=false
                         }
@@ -301,7 +301,7 @@ Rectangle {
                                 //pos.y=mouseY+xMASC-width//-app.fs*0.25
                             }
                             if(!app.lock){
-                                app.setInfo(compSen.info1, compSen.info2, compSen.info3)
+                                app.setInfo(compSen.info1, compSen.info2, compSen.info3, compSen.son)
                             }
                             xMiraSen.visible=!xMiraSen.visible
                             r.seteandoObj(son, xMiraSen.visible)
@@ -310,19 +310,19 @@ Rectangle {
                         onDoubleClicked: {
                             xMiraSen.visible=true
                             app.lock=true
-                            app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3)
+                            app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSen.son)
                             maSC.enabled=false
                             tShowMASC.restart()
                         }
                         onEntered: {
                             if(!app.lock){
-                                app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3)
+                                app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSenAsc.son)
                             }
                             info.show=true
                         }
                         onExited: {
                             if(!app.lock){
-                                app.setInfo('', '', '')
+                                app.setInfo('', '', '','')
                             }
                             info.show=false
                         }
@@ -446,7 +446,7 @@ Rectangle {
         let info2='<b style="font-size:'+fs+'px">'+app.signos[app.objSignsNames.indexOf(s)]+'</b>'
         let info3='<b style="font-size:'+fs2+'px">°'+g+'\''+m+' Casa '+h+'</b>'
         let comp=sc
-        let obj=comp.createObject(rueda, {rotation: gTotSig, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s})
+        let obj=comp.createObject(rueda, {rotation: gTotSig, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s+'_'+h})
     }
     function addSCAsc(c, s, g, m, j){
         let fs=parseInt(app.fs*1.5)

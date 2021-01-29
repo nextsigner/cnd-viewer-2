@@ -14,6 +14,7 @@ ApplicationWindow {
     property int mod: 0
 
     property bool lock: false
+    property string uSon: ''
 
     property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     property var planetas: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'Quirón', 'Proserpina', 'Selena', 'Lilith', 'N.Sur', 'N.Norte']
@@ -272,7 +273,6 @@ ApplicationWindow {
         //            id: xCentralCircle
         //            opacity: 0.3
         //        }
-
         Item{
             id: xAreaFlecha
             anchors.fill: parent
@@ -304,17 +304,6 @@ ApplicationWindow {
                 }
             }
         }
-        //        Rectangle{
-        //            id: circBorde
-        //            width: xCentralCircle.rectCentral.width
-        //            height: xCentralCircle.rectCentral.height
-        //            border.width: 1
-        //            border.color: 'red'
-        //            anchors.centerIn: parent
-        //            //radius: width*0.5
-        //            color: 'transparent'
-        //            visible: false
-        //        }
         Item{
             id: xImg2
             width: parent.width*0.5
@@ -400,6 +389,11 @@ ApplicationWindow {
             visible: false
         }
         XNombre{id: xNombre}
+        XTools{
+            id: xTools
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
     }
     Shortcut{
         sequence: 'Ctrl+Up'
@@ -433,10 +427,11 @@ ApplicationWindow {
     Component.onCompleted: {
 
     }
-    function setInfo(i1, i2, i3){
+    function setInfo(i1, i2, i3, son){
         infoCentral.info1=i1
         infoCentral.info2=i2
         infoCentral.info3=i3
+        app.uSon=son
     }
     function getEdad(dateString) {
         let hoy = new Date()
