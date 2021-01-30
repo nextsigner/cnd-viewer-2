@@ -25,14 +25,12 @@ Rectangle {
             let data=''
             if(!unik.fileExist(jsonFileLocation)){
                 //data='File '+jsonFileLocation+' not exits!'
-                console.log('No se pudo abrir json: '+jsonFileLocation)
+                //console.log('No se pudo abrir json: '+jsonFileLocation)
+                let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: app.fs*8, height: app.fs*3, fs: app.fs*0.5, title:'Sin datos'})
             }else{
                 let numHome=-1
                 let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
-                console.log('0 Abriendo json en casa : ['+m0[2]+']')
                 numHome=vNumRom.indexOf(m0[2])+1
-                console.log('Abriendo json: '+jsonFileLocation)
-                console.log('Abriendo json en casa : '+numHome)
                 getJSON(jsonFileName, comp, app.objSignsNames.indexOf(m0[1]), numHome, nomCuerpo)
             }
         }
@@ -47,17 +45,17 @@ Rectangle {
         //'file:///home/ns/Documentos/unik/quiron/data/neptuno.json'
 
         let jsonFileUrl='file:///home/ns/nsp/uda/quiron/data/'+fileLocation
-        console.log('jsonFileUrl: '+jsonFileUrl)
+        //console.log('jsonFileUrl: '+jsonFileUrl)
         request.open('GET', jsonFileUrl, true);
         //request.open('GET', 'https://github.com/nextsigner/quiron/raw/main/data/'+cbPlanetas.currentText+'.json', true);
         request.onreadystatechange = function() {
             if (request.readyState === XMLHttpRequest.DONE) {
                 if (request.status && request.status === 200) {
-                    console.log("response", request.responseText)
+                    //console.log("response", request.responseText)
                     var result = JSON.parse(request.responseText)
                     if(result){
                         //console.log(result)
-                        console.log('Abriendo casa de json: '+c)
+                        //console.log('Abriendo casa de json: '+c)
                         let dataJson0=result['h'+c].split('|')
                         let data='<h2>'+nomCuerpo+' en casa '+c+'</h2>'
                         for(var i=0;i<dataJson0.length;i++){

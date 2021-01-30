@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 
-Window {
+ApplicationWindow {
     id: app
     visible: true
     width: app.fs*10
@@ -15,6 +15,19 @@ Window {
     Item{
         id: xApp
         anchors.fill: parent
+        Rectangle{
+            anchors.fill: parent
+            color: 'transparent'
+            border.width: b?3:0
+            border.color: 'red'
+            property bool b: false
+            Timer{
+                running: true
+                repeat: true
+                interval: 1000
+                onTriggered: parent.b=!parent.b
+            }
+        }
         Flickable{
             anchors.fill: parent
             contentWidth: parent.width
@@ -35,6 +48,10 @@ Window {
             anchors.fill: parent
             onDoubleClicked: app.close()
         }
+    }
+    Shortcut{
+        sequence: 'Esc'
+        onActivated: app.close()
     }
     Component.onCompleted: {
         //let txt='Este es un texto de ejemplo Este es un texto de ejemplo Este es un texto de ejemplo Este es un texto de ejemplo Este es un texto de ejemplo Este es un texto de ejemplo Este es un texto de ejemplo Este es un texto de ejemplo Este es un texto de ejemplo '

@@ -131,7 +131,7 @@ Rectangle {
                         anchors.fill: parent
                         hoverEnabled: true
                         drag.target: parent.parent
-                        drag.axis: drag.YAxis
+                        drag.axis: Drag.YAxis
                         //drag.active: true
                         onClicked: {
                             if(!xMASCZOOM.seted){
@@ -281,14 +281,14 @@ Rectangle {
     function addSC(c, s, g, m, h, j){
         let numSigno=app.objSignsNames.indexOf(j.pc.h1.s)
         let gAsc=j.pc.h1.g+numSigno*30
-        console.log('NumSig:'+numSigno)
-        console.log('gAsc:'+gAsc)
+        //console.log('NumSig:'+numSigno)
+        //console.log('gAsc:'+gAsc)
         let vRCuerpo=30*getSigIndex(s)
         let gTotSig=0-vRCuerpo+gAsc-g-90//gAsc-(app.objSignsNames.indexOf(s)+1)*30+g//+(360-gAsc)
-        console.log('-->'+c+' '+s+' '+g+' '+app.objSignsNames.indexOf(s))
+        //console.log('-->'+c+' '+s+' '+g+' '+app.objSignsNames.indexOf(s))
         let fs=parseInt(app.fs*1.5)
         let fs2=parseInt(fs *0.7)
-        console.log('Planeta: '+app.planetas[app.planetasRes.indexOf(c)])
+        //console.log('Planeta: '+app.planetas[app.planetasRes.indexOf(c)])
         let info1='<b>'+app.planetas[app.planetasRes.indexOf(c)]+'</b>'
         let info2='<b style="font-size:'+fs+'px">'+app.signos[app.objSignsNames.indexOf(s)]+'</b>'
         let info3='<b style="font-size:'+fs2+'px">°'+g+'\''+m+' Casa '+h+'</b>'
