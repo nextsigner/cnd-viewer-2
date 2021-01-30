@@ -24,12 +24,15 @@ Rectangle {
             let jsonFileLocation='/home/ns/nsp/uda/quiron/data/'+jsonFileName
             let data=''
             if(!unik.fileExist(jsonFileLocation)){
-                data='File '+jsonFileLocation+' not exits!'
+                //data='File '+jsonFileLocation+' not exits!'
+                console.log('No se pudo abrir json: '+jsonFileLocation)
             }else{
                 let numHome=-1
-                if(m0[2]==='VII'){
-                    numHome=7
-                }
+                let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
+                console.log('0 Abriendo json en casa : ['+m0[2]+']')
+                numHome=vNumRom.indexOf(m0[2])+1
+                console.log('Abriendo json: '+jsonFileLocation)
+                console.log('Abriendo json en casa : '+numHome)
                 getJSON(jsonFileName, comp, app.objSignsNames.indexOf(m0[1]), numHome, nomCuerpo)
             }
         }
@@ -54,6 +57,7 @@ Rectangle {
                     var result = JSON.parse(request.responseText)
                     if(result){
                         //console.log(result)
+                        console.log('Abriendo casa de json: '+c)
                         let dataJson0=result['h'+c].split('|')
                         let data='<h2>'+nomCuerpo+' en casa '+c+'</h2>'
                         for(var i=0;i<dataJson0.length;i++){
