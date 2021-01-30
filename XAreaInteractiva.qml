@@ -200,60 +200,7 @@ Rectangle {
             property string info2: '???'
             property string info3: '???'
             Rectangle{
-                id: info
-                width: app.fs*7.24
-                height: width
-                radius: width*0.5
-                border.width: 4
-                border.color: 'red'
-                clip: true
-                anchors.centerIn: parent
-                rotation: 0-parent.rotation
-                property bool show: false
-                opacity: 0.0//show?1.0:0.0
-                Behavior on opacity {
-                    NumberAnimation{duration: 200}
-                }
-                Column{
-                    spacing: app.fs*0.1
-                    anchors.centerIn: parent
-                    Text {
-                        id: i1
-                        color: 'red'
-                        font.pixelSize: app.fs*1.5
-                        text: compSen.info1
-                        width: parent.width-app.fs
-                        wrapMode: Text.WordWrap
-                        textFormat: Text.RichText
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    Text {
-                        id: i2
-                        color: 'red'
-                        font.pixelSize: app.fs*2
-                        text: compSen.info2
-                        width: parent.width-app.fs*1.5
-                        wrapMode: Text.WordWrap
-                        textFormat: Text.RichText
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    Text {
-                        id: i3
-                        color: 'red'
-                        font.pixelSize: app.fs*2
-                        text: compSen.info3
-                        width: parent.width-app.fs
-                        wrapMode: Text.WordWrap
-                        textFormat: Text.RichText
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
-            }
-            Rectangle{
-                id: xMASC
+                id: xMASCASC
                 width: app.fs*1.5
                 height: width//parent.height/2
                 border.width: 0
@@ -291,7 +238,7 @@ Rectangle {
                         drag.axis: Drag.YAxis
                         //drag.active: true
                         onClicked: {
-                            if(!xMASC.seted){
+                            if(!xMASCASC.seted){
                                 //xMASC.height=app.fs*0.85//xMASC.parent.height/2-mouseY
                                 //xMASC.width=xMASC.height
                                 //xMASC.y=mouseY-app.fs*0.85*0.5
@@ -301,7 +248,7 @@ Rectangle {
                                 //pos.y=mouseY+xMASC-width//-app.fs*0.25
                             }
                             if(!app.lock){
-                                app.setInfo(compSen.info1, compSen.info2, compSen.info3, compSen.son)
+                                app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSenAsc.son)
                             }
                             xMiraSen.visible=!xMiraSen.visible
                             r.seteandoObj(son, xMiraSen.visible)
@@ -310,7 +257,7 @@ Rectangle {
                         onDoubleClicked: {
                             xMiraSen.visible=true
                             app.lock=true
-                            app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSen.son)
+                            app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSenAsc.son)
                             maSC.enabled=false
                             tShowMASC.restart()
                         }
@@ -318,13 +265,11 @@ Rectangle {
                             if(!app.lock){
                                 app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSenAsc.son)
                             }
-                            info.show=true
                         }
                         onExited: {
                             if(!app.lock){
                                 app.setInfo('', '', '','')
                             }
-                            info.show=false
                         }
                     }
                     Timer{
@@ -342,7 +287,7 @@ Rectangle {
                 id: xMiraSen
                 w:app.fs*2.5
                 mov: false//enabled?img.mov:true
-                anchors.centerIn: xMASC
+                anchors.centerIn: xMASCASC
                 visible: false
                 property bool enabled: true
             }
@@ -451,12 +396,12 @@ Rectangle {
     function addSCAsc(c, s, g, m, j){
         let fs=parseInt(app.fs*1.5)
         let fs2=parseInt(fs *0.4)
-        let info1='<b  style="font-size:'+parseInt(fs*1.2)+'px;">Signo</b><br />'
+        let info1='<b  style="font-size:'+parseInt(fs*0.8)+'px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signo</b><br />'
         info1+='<b  style="font-size:'+parseInt(fs*1.1)+'px;">Ascendente</b>'
         let info2='<b style="font-size:'+fs+'px;">'+app.signos[app.objSignsNames.indexOf(s)]+'</b>'
         let info3='<b style="font-size:'+fs2+'px;">°'+g+'\''+m+' Casa I</b>'
         let comp=scAsc
-        let obj=comp.createObject(rueda, {rotation: -90, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s})
+        let obj=comp.createObject(rueda, {rotation: -90, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s+'_I'})
     }
 
     function getSigIndex(s){
