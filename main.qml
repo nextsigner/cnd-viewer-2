@@ -428,10 +428,12 @@ ApplicationWindow {
 
     }
     function setInfo(i1, i2, i3, son){
-        infoCentral.info1=i1
-        infoCentral.info2=i2
-        infoCentral.info3=i3
-        app.uSon=son
+        if(son){
+            infoCentral.info1=i1
+            infoCentral.info2=i2
+            infoCentral.info3=i3
+            app.uSon=son
+        }
     }
     function getEdad(dateString) {
         let hoy = new Date()

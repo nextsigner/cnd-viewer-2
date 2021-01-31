@@ -19,16 +19,13 @@ Rectangle {
             let comp=Qt.createComponent(fileLocation)
 
             //Cuerpo en Casa
-            let nomCuerpo=app.planetas[app.planetasRes.indexOf(m0[0])]
-            let jsonFileName=quitarAcentos(nomCuerpo.toLowerCase())+'.json'
+            let nomCuerpo=m0[0]!=='asc'?app.planetas[app.planetasRes.indexOf(m0[0])]:'Ascendente'
+            let jsonFileName=m0[0]!=='asc'?quitarAcentos(nomCuerpo.toLowerCase())+'.json':'asc.json'
             let jsonFileLocation='/home/ns/nsp/uda/quiron/data/'+jsonFileName
-            let data=''
             if(!unik.fileExist(jsonFileLocation)){
-                //data='File '+jsonFileLocation+' not exits!'
-                //console.log('No se pudo abrir json: '+jsonFileLocation)
                 let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: app.fs*8, height: app.fs*3, fs: app.fs*0.5, title:'Sin datos'})
             }else{
-                let numHome=-1
+                let numHome=m0[0]!=='asc'?-1:1
                 let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
                 numHome=vNumRom.indexOf(m0[2])+1
                 getJSON(jsonFileName, comp, app.objSignsNames.indexOf(m0[1]), numHome, nomCuerpo)
@@ -51,18 +48,25 @@ Rectangle {
         request.onreadystatechange = function() {
             if (request.readyState === XMLHttpRequest.DONE) {
                 if (request.status && request.status === 200) {
-                    //console.log("response", request.responseText)
+                    //console.log(":::", request.responseText)
                     var result = JSON.parse(request.responseText)
                     if(result){
                         //console.log(result)
                         //console.log('Abriendo casa de json: '+c)
-                        let dataJson0=result['h'+c].split('|')
-                        let data='<h2>'+nomCuerpo+' en casa '+c+'</h2>'
-                        for(var i=0;i<dataJson0.length;i++){
-                            data+='<p>'+dataJson0[i]+'</p>'
+                        console.log('Abriendo dato signo:'+s+' casa:'+c+'...')
+                        let dataJson0=''
+                        let data='...'+result['h'+c]
+                        if(result['h'+c]){
+                            console.log('Abriendo dato de casa... ')
+                            dataJson0=result['h'+c].split('|')
+                            data='<h2>'+nomCuerpo+' en casa '+c+'</h2>'
+                            for(var i=0;i<dataJson0.length;i++){
+                                data+='<p>'+dataJson0[i]+'</p>'
+                            }
                         }
                         //console.log('Signo para mostar: '+s)
                         if(result['s'+s]){
+                            console.log('Abriendo dato de signo... ')
                             dataJson0=result['s'+s].split('|')
                             data+='<h2>'+nomCuerpo+' en '+app.signos[s]+'</h2>'
                             for(i=0;i<dataJson0.length;i++){

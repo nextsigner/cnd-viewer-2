@@ -33,59 +33,6 @@ Rectangle {
             property string info2: '???'
             property string info3: '???'
             Rectangle{
-                id: info
-                width: app.fs*7.24
-                height: width
-                radius: width*0.5
-                border.width: 4
-                border.color: 'red'
-                clip: true
-                anchors.centerIn: parent
-                rotation: 0-parent.rotation
-                property bool show: false
-                opacity: 0.0//show?1.0:0.0
-                Behavior on opacity {
-                    NumberAnimation{duration: 200}
-                }
-                Column{
-                    spacing: app.fs*0.1
-                    anchors.centerIn: parent
-                    Text {
-                        id: i1
-                        color: 'red'
-                        font.pixelSize: app.fs*1.5
-                        text: compSen.info1
-                        width: parent.width-app.fs
-                        wrapMode: Text.WordWrap
-                        textFormat: Text.RichText
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    Text {
-                        id: i2
-                        color: 'red'
-                        font.pixelSize: app.fs*2
-                        text: compSen.info2
-                        width: parent.width-app.fs*1.5
-                        wrapMode: Text.WordWrap
-                        textFormat: Text.RichText
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                    Text {
-                        id: i3
-                        color: 'red'
-                        font.pixelSize: app.fs*2
-                        text: compSen.info3
-                        width: parent.width-app.fs
-                        wrapMode: Text.WordWrap
-                        textFormat: Text.RichText
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
-            }
-            Rectangle{
                 id: xMASC
                 width: app.fs*0.15
                 height: parent.height/2
@@ -150,13 +97,11 @@ Rectangle {
                             if(!app.lock){
                                 app.setInfo(compSen.info1, compSen.info2, compSen.info3, compSen.son)
                             }
-                            info.show=true
                         }
                         onExited: {
                             if(!app.lock){
                                 app.setInfo('', '', '','')
                             }
-                            info.show=false
                         }
                     }
                     Timer{
@@ -178,12 +123,6 @@ Rectangle {
                 visible: false
                 property bool enabled: true
             }
-            //            MouseArea{
-            //                id: maSCM
-            //                anchors.fill: parent
-            //                drag.target: parent
-            //                drag.axis: drag.XAndYAxis
-            //            }
         }
     }
     Component{
@@ -250,13 +189,14 @@ Rectangle {
                             if(!app.lock){
                                 app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSenAsc.son)
                             }
-                            xMiraSen.visible=!xMiraSen.visible
-                            r.seteandoObj(son, xMiraSen.visible)
+                            xMiraSenAsc.visible=!xMiraSenAsc.visible
+                            r.seteandoObj(son, xMiraSenAsc.visible)
                             //console.log('Seteando '+son)
                         }
                         onDoubleClicked: {
-                            xMiraSen.visible=true
+                            xMiraSenAsc.visible=true
                             app.lock=true
+                            console.log('111 Set son: '+compSenAsc.son)
                             app.setInfo(compSenAsc.info1, compSenAsc.info2, compSenAsc.info3, compSenAsc.son)
                             maSC.enabled=false
                             tShowMASC.restart()
@@ -284,7 +224,7 @@ Rectangle {
                 }
             }
             XMira{
-                id: xMiraSen
+                id: xMiraSenAsc
                 w:app.fs*2.5
                 mov: false//enabled?img.mov:true
                 anchors.centerIn: xMASCASC
@@ -369,13 +309,12 @@ Rectangle {
         obj=jsonData.psc[sObj]
         addSC(sObj, obj.s, obj.g, obj.m, (obj.rh).toUpperCase(), jsonData)
 
-        addSCAsc('Ascendente', jsonData.pc.h1.s, jsonData.pc.h1.g, jsonData.pc.h1.m, jsonData)
+        addSCAsc('asc', jsonData.pc.h1.s, jsonData.pc.h1.g, jsonData.pc.h1.m, jsonData)
 
         //        sObj='Ascendente'
         //        obj=jsonData.psc[sObj]
         //        addSC(sObj, 'Ascendente', jsonData.pc.h1.g, jsonData.pc.h1.m, ('i').toUpperCase(), jsonData)
     }
-
     function addSC(c, s, g, m, h, j){
         let numSigno=app.objSignsNames.indexOf(j.pc.h1.s)
         let gAsc=j.pc.h1.g+numSigno*30
@@ -403,7 +342,6 @@ Rectangle {
         let comp=scAsc
         let obj=comp.createObject(rueda, {rotation: -90, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s+'_I'})
     }
-
     function getSigIndex(s){
         let ms=['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
         return ms.indexOf(s)
