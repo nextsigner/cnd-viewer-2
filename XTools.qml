@@ -28,7 +28,8 @@ Rectangle {
                 let numHome=m0[0]!=='asc'?-1:1
                 let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
                 numHome=vNumRom.indexOf(m0[2])+1
-                getJSON(jsonFileName, comp, app.objSignsNames.indexOf(m0[1]), numHome, nomCuerpo)
+                //console.log('::::Abriendo signo: '+app.objSignsNames.indexOf(m0[1])+' casa: '+numHome+' nomCuerpo: '+nomCuerpo)
+                getJSON(jsonFileName, comp, app.objSignsNames.indexOf(m0[1])+1, numHome, nomCuerpo)
             }
         }
     }
@@ -55,7 +56,7 @@ Rectangle {
                         //console.log('Abriendo casa de json: '+c)
                         console.log('Abriendo dato signo:'+s+' casa:'+c+'...')
                         let dataJson0=''
-                        let data='...'+result['h'+c]
+                        let data=''//+result['h'+c]
                         if(result['h'+c]){
                             console.log('Abriendo dato de casa... ')
                             dataJson0=result['h'+c].split('|')
@@ -68,7 +69,7 @@ Rectangle {
                         if(result['s'+s]){
                             console.log('Abriendo dato de signo... ')
                             dataJson0=result['s'+s].split('|')
-                            data+='<h2>'+nomCuerpo+' en '+app.signos[s]+'</h2>'
+                            data+='<h2>'+nomCuerpo+' en '+app.signos[s - 1]+'</h2>'
                             for(i=0;i<dataJson0.length;i++){
                                 data+='<p>'+dataJson0[i]+'</p>'
                             }
