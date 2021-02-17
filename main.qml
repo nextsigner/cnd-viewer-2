@@ -52,9 +52,11 @@ ApplicationWindow {
             let vlon=jsonData.params.lon
             let vlat=jsonData.params.lat
             let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+            let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
+            let stringEdad=edad.indexOf('NaN')<0?edad:''
             let textData=''
                 +'<b>'+nom+'</b>'
-                +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")+'</p>'
+                +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
                 +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
                 +'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
             xNombre.nom=textData
